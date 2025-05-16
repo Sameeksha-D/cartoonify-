@@ -4,23 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartoonify Your Image</title>
-    <link rel="stylesheet" href="static/style.css"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2, h3 {
+            color: #333;
+        }
+        .upload-section {
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-pair {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+            border: 3px solid #333;
+            border-radius: 5px;
+        }
+        .download-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .download-link {
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            display: inline-block;
+        }
+        .download-link:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Cartoonify Image!</h2>
+        <h2>Cartoonify Your Image!</h2>
         <div class="upload-section">
             <form action="/" method="post" enctype="multipart/form-data">
-                <label class="custom-file-upload">
-                    <input type="file" name="image" required>
-                    Choose File
-                </label>
-                <button type="submit">Upload and Cartoonify</button>
+                <input type="file" name="image" required>
+                <button type="submit">Upload & Cartoonify</button>
             </form>
         </div>
 
         {% if images %}
-        <h3>Output Image with the original image</h3>
+        <h3>Cartoonified Image & Original:</h3>
         <div class="image-container">
             {% for img in images %}
             <div class="image-pair">
@@ -37,7 +110,7 @@
         </div>
 
         <div class="download-container">
-            <a class="download-link" href="/download/{{ images[0]['cartoon'] }}">Download Cartoonified Image</a>
+            <a class="download-link" href="/download/{{ images[0]['cartoon'] }}">Download Latest Cartoonified Image</a>
         </div>
         {% endif %}
     </div>
