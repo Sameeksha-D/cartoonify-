@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+    color: #333;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #e0a800;
+}
+
+.custom-file-upload input {
+    display: none;
+    color:#007bff;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.image-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+img {
+    max-width: 200px;
+    height: auto;
+    border: 3px solid #333;
+    border-radius: 5px;
+}
+
+.download-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.download-link {
+    text-decoration: none;
+    color: white;
+    background-color: #28a745;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.download-link:hover {
+    background-color: #218838;
+}

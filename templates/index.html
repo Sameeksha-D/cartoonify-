@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartoonify Your Image</title>
+    <link rel="stylesheet" href="static/style.css"> 
+</head>
+<body>
+    <div class="container">
+        <h2>Cartoonify Image!</h2>
+        <div class="upload-section">
+            <form action="/" method="post" enctype="multipart/form-data">
+                <label class="custom-file-upload">
+                    <input type="file" name="image" required>
+                    Choose File
+                </label>
+                <button type="submit">Upload and Cartoonify</button>
+            </form>
+        </div>
+
+        {% if images %}
+        <h3>Output Image with the original image</h3>
+        <div class="image-container">
+            {% for img in images %}
+            <div class="image-pair">
+                <div>
+                    <h4>Original</h4>
+                    <img src="{{ img['original'] }}" alt="Original Image">
+                </div>
+                <div>
+                    <h4>Cartoonified</h4>
+                    <img src="{{ img['cartoon'] }}" alt="Cartoonified Image">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="download-container">
+            <a class="download-link" href="/download/{{ images[0]['cartoon'] }}">Download Cartoonified Image</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
