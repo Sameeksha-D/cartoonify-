@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color:#FFCFEF;
             margin: 0;
             padding: 20px;
         }
@@ -19,6 +19,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color:rgb(115, 201, 216);
         }
         h2, h3 {
             color: #333;
@@ -30,9 +31,10 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
+        
         }
         button {
-            background-color: #007bff;
+            background-color: #0A5EB0;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -71,14 +73,14 @@
         .download-link {
             text-decoration: none;
             color: white;
-            background-color: #28a745;
+            background-color: #2A3335;
             padding: 10px 15px;
             border-radius: 5px;
             font-size: 18px;
             display: inline-block;
         }
         .download-link:hover {
-            background-color: #218838;
+            background-color:rgb(133, 199, 213);
         }
     </style>
 </head>
@@ -88,12 +90,12 @@
         <div class="upload-section">
             <form action="/" method="post" enctype="multipart/form-data">
                 <input type="file" name="image" required>
-                <button type="submit">Upload & Cartoonify</button>
+                <button type="submit">Upload and Cartoonify</button>
             </form>
         </div>
 
         {% if images %}
-        <h3>Cartoonified Image & Original:</h3>
+        <h3>Cartoonified Image and Original:</h3>
         <div class="image-container">
             {% for img in images %}
             <div class="image-pair">
@@ -101,17 +103,21 @@
                     <h4>Original</h4>
                     <img src="{{ img['original'] }}" alt="Original Image">
                 </div>
-                <div>
+            
+            <div>
                     <h4>Cartoonified</h4>
                     <img src="{{ img['cartoon'] }}" alt="Cartoonified Image">
                 </div>
             </div>
+
+            {% if img['original'] and img['cartoon'] %}
+            <div class="download-container">
+                <a class="download-link" href="/download/{{ img['cartoon'] }}">Download Cartoonified Image</a>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
 
-        <div class="download-container">
-            <a class="download-link" href="/download/{{ images[0]['cartoon'] }}">Download Latest Cartoonified Image</a>
-        </div>
         {% endif %}
     </div>
 </body>
