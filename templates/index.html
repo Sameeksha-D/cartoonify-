@@ -27,11 +27,10 @@
         .upload-section {
             margin-bottom: 20px;
         }
-        input[type="file"] {
+        input[type="file"], select {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-        
         }
         button {
             background-color:rgb(34, 69, 99);
@@ -70,32 +69,6 @@
             margin-top: 20px;
             text-align: center;
         }
-        /* 🔹 Mobile Compatibility */
-@media (max-width: 600px) {
-    .container {
-        max-width: 90%;
-        padding: 15px;
-    }
-
-    .image-pair {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    img {
-        max-width: 80%;
-    }
-
-    .download-link {
-        font-size: 16px;
-        padding: 8px 12px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 8px 10px;
-    }
-}
         .download-link {
             text-decoration: none;
             color: white;
@@ -108,6 +81,28 @@
         .download-link:hover {
             background-color:rgb(133, 199, 213);
         }
+        /* 🔹 Mobile Compatibility */
+        @media (max-width: 600px) {
+            .container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            .image-pair {
+                flex-direction: column;
+                gap: 10px;
+            }
+            img {
+                max-width: 80%;
+            }
+            .download-link {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -115,9 +110,18 @@
         <h2>Cartoonify Your Image!</h2>
         <div class="upload-section">
             <form action="/" method="post" enctype="multipart/form-data">
+                <label for="image_type">Select Image Type:</label>
+                <select name="image_type" required>
+                    <option value="human">Human</option>
+                    <option value="animal">Animal</option>
+                    <option value="nature">Nature</option>
+                    <option value="object">Object</option>
+                </select>
+                <br><br>
                 <input type="file" name="image" required>
                 <button type="submit">Upload and Cartoonify</button>
             </form>
+            
         </div>
 
         {% if images %}
@@ -129,8 +133,7 @@
                     <h4>Original</h4>
                     <img src="{{ img['original'] }}" alt="Original Image">
                 </div>
-            
-            <div>
+                <div>
                     <h4>Cartoonified</h4>
                     <img src="{{ img['cartoon'] }}" alt="Cartoonified Image">
                 </div>
@@ -143,7 +146,6 @@
             {% endif %}
             {% endfor %}
         </div>
-
         {% endif %}
     </div>
 </body>
