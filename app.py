@@ -67,7 +67,7 @@ def index():
                 "cartoon": cartoon_filepath.replace("\\", "/")
             })
 
-            # ✅ Keep only the last three images for cleanup
+            #  Keep only the last three images for cleanup
             if len(generated_images) > 3:
                 old_images = generated_images.pop()
                 os.remove(old_images["original"])
