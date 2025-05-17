@@ -1,7 +1,7 @@
 import os
 import cv2
 import numpy as np
-import pyheif
+from pillow_heif import HeifImage
 from PIL import Image
 from flask import Flask, render_template, request, send_file
 
@@ -19,10 +19,10 @@ def allowed_file(filename):
 generated_images = []  # Store last three processed images
 
 def convert_heic_to_jpg(heic_path):
-    """Convert HEIC image to JPEG format."""
-    heif_file = pyheif.read(heic_path)
-    img = Image.frombytes(mode=heif_file.mode, size=heif_file.size, data=heif_file.data)
-    
+    """Convert HEIC image to JPEG format using pillow-heif."""
+    heif_img = HeifImage.open(heic_path)
+    img = heif_img.to_pil()
+
     jpg_path = heic_path.replace(".heic", ".jpg")  # Convert HEIC filename to JPG
     img.save(jpg_path, "JPEG")
     
