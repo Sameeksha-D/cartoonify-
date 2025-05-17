@@ -1,6 +1,6 @@
 flask
+gunicorn
 opencv-python
 numpy
-gunicorn
 pillow
 pillow-heif
