@@ -9,7 +9,7 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "static/cartoon_images"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# ✅ Allow multiple image formats including HEIC
+#   Support multiple image formats including HEIC
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "bmp", "heic"}
 
 def allowed_file(filename):
@@ -29,17 +29,27 @@ def convert_heic_to_jpg(heic_path):
     return jpg_path
 
 def cartoonify_image(image_path):
-    """Convert an image into a cartoon-style effect."""
+    """Convert an image into a more exaggerated cartoon-style effect."""
     img = cv2.imread(image_path)
     original_size = img.shape[:2]  # Get (height, width)
 
+    #   Convert to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.medianBlur(gray, 7)
-    edges = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 9)
-    color = cv2.bilateralFilter(img, 9, 300, 300)
-    cartoon = cv2.bitwise_and(color, color, mask=edges)
 
-    # ✅ Ensure cartoonified image keeps the original size
+    #   Stronger edge detection for exaggerated effect
+    edges = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 12)
+
+    #   More vibrant and bold colors
+    color = cv2.bilateralFilter(img, 15, 350, 350)
+
+    #   Apply OpenCV stylization for an artistic, cartoonish look
+    stylized_cartoon = cv2.stylization(color, sigma_s=150, sigma_r=0.25)
+
+    #   Overlay edges on stylized image
+    cartoon = cv2.bitwise_and(stylized_cartoon, stylized_cartoon, mask=edges)
+
+    #   Maintain original size
     cartoon_resized = cv2.resize(cartoon, (original_size[1], original_size[0]))
 
     return cartoon_resized
@@ -50,11 +60,11 @@ def index():
     if request.method == "POST":
         file = request.files["image"]
 
-        if file and allowed_file(file.filename):  # ✅ Validate image format
+        if file and allowed_file(file.filename):  #   Validate image format
             filepath = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(filepath)
 
-            # ✅ Convert HEIC to JPG before processing
+            #   Convert HEIC to JPG before processing
             if file.filename.lower().endswith(".heic"):
                 filepath = convert_heic_to_jpg(filepath)
 
